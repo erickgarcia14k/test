@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="initial-scale=1, shrink-to-fit=no, width=device-width" name="viewport">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i|Roboto+Mono:300,400,700|Roboto+Slab:300,400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="icon" href="assets/imgs/head.ico">
+    <link href="assets/css/material.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/home.css">
+    <title>Programación</title>
+</head>
+<body>
+<div class="container border mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-12 mb-5">
+            <h2 class="text-center mt-3">Formulario Lenguajes de Programación <hr></h2>
+        </div>
+        <div class="col-md-5">
+            <form id="my-google-sheet">
+                <div class="form-group">
+                    <label for="Nombre">Nombre</label>
+                    <input type="text" name="Nombre" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="Correo">Correo</label>
+                    <input type="email" name="Correo" class="form-control" required placeholder="ejemplo@gmail.com">
+                  </div>
+                <div class="form-group">
+                    <label for="Lenguajes">Lenguajes</label>
+                    <select name="Lenguajes" class="form-control" required>
+                        <option value=""></option>
+                        <option value="javascript">JavaScript</option>
+                        <option value="php">PHP</option>
+                        <option value="java">Java</option>
+                        <option value="golang">Golang</option>
+                        <option value="python">Python</option>
+                        <option value="c#">C#</option>
+                        <option value="C++">C++</option>
+                        <option value="erlang">Erlang</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="Calificacion">Calificación</label>
+                  <input type="number" name="Calificacion" class="form-control" required min="1" max="5" placeholder="Solo del 1 al 5">
+              </div>          
+              
+
+            </form>
+            <div class="form-group mb-5 text-center mt-5">
+                <button onclick="SendFormGoogleSheets()" class="btn btn-primary btn-sm">Enviar Formulario</button>
+            </div>
+
+            <div class="form-group mb-5 text-center mt-5">
+              <button onclick="LimpiarCampos()" class="btn btn-secondary btn-sm">Limpiar</button>
+            </div>
+
+
+        </div>
+        <div class="col-md-5">
+            <img src="assets/imgs/main.png" alt="" class="img-fluid">
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="assets/js/material.min.js"></script>
+<script>
+    function SendFormGoogleSheets() {
+
+       // Obtén los valores de los campos
+       const nombre = document.querySelector('[name="Nombre"]').value;
+        const correo = document.querySelector('[name="Correo"]').value;
+        const lenguajes = document.querySelector('[name="Lenguajes"]').value;
+        const calificacion = document.querySelector('[name="Calificacion"]').value;
+
+        // Verifica si los campos están llenos
+        if (nombre && correo && lenguajes && calificacion) {
+        $.ajax({
+            url: 'https://script.google.com/macros/s/AKfycbxX1vaDPDwpOh9GSMNxI5beTNsQ_hPn8NhQTXTrHl-81sAWSgArKdTPBXb3aTFZYfyV/exec',
+            type: 'post',
+            data: $("#my-google-sheet").serializeArray(),
+            success: function () {
+                alert("Registro exitoso");
+            },
+            error: function () {
+                alert("Error en el Registro :(");
+            }
+        });
+      }else {
+            alert("Por favor, completa todos los campos antes de enviar el formulario.");
+        }
+    }
+
+    function LimpiarCampos() {
+    document.querySelector('[name="Nombre"]').value = '';
+    document.querySelector('[name="Correo"]').value = '';
+    document.querySelector('[name="Lenguajes"]').value = '';
+    document.querySelector('[name="Calificacion"]').value = '';
+}
+</script>
+</body>
+</html>
